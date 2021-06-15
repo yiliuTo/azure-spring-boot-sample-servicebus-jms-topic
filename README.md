@@ -2,6 +2,19 @@
 
 This sample project demonstrates how to enable shared subscription using Spring JMS Topic for Azure Service Bus via Spring Boot Starter `azure-spring-boot-starter-servicebus-jms`.
  
+### Enable shared subscription
+1. Add below code snippet in `AzureSpringBootSampleServicebusJmsTopicApplication.java` to get the bean of `topicJmsListenerContainerFactory` and modify its configuration.
+
+    ```java
+    @Autowired
+    private ApplicationContext applicationContext;
+    
+    @PostConstruct
+    public void registerResources() {
+        ((DefaultJmsListenerContainerFactory)applicationContext.getBean("topicJmsListenerContainerFactory"))
+        .setSubscriptionShared(Boolean.TRUE);
+    }
+    ```
 ### Config the project
 1. Update [application.properties](https://github.com/Azure/azure-sdk-for-java/blob/master/sdk/spring/azure-spring-boot-samples/azure-spring-boot-sample-servicebus-jms-topic/src/main/resources/application.properties)
 
